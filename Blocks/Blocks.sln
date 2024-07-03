@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blocks", "Blocks\Blocks.csproj", "{EF22CB87-8532-4A46-BC24-EA8C9FE42032}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{EB2323E8-86A5-42BB-BC16-8E5DF64F5055}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{30A30E57-FDE3-4E20-99F5-10A387700974}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF22CB87-8532-4A46-BC24-EA8C9FE42032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF22CB87-8532-4A46-BC24-EA8C9FE42032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF22CB87-8532-4A46-BC24-EA8C9FE42032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF22CB87-8532-4A46-BC24-EA8C9FE42032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB2323E8-86A5-42BB-BC16-8E5DF64F5055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2323E8-86A5-42BB-BC16-8E5DF64F5055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2323E8-86A5-42BB-BC16-8E5DF64F5055}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2323E8-86A5-42BB-BC16-8E5DF64F5055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30A30E57-FDE3-4E20-99F5-10A387700974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30A30E57-FDE3-4E20-99F5-10A387700974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30A30E57-FDE3-4E20-99F5-10A387700974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30A30E57-FDE3-4E20-99F5-10A387700974}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal

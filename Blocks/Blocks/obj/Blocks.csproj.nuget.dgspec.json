@@ -1,0 +1,181 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\PSB\\Second-step-in-PSB\\Blocks\\Blocks\\Blocks.csproj": {}
+  },
+  "projects": {
+    "D:\\PSB\\Second-step-in-PSB\\Blocks\\Blocks\\Blocks.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Blocks\\Blocks.csproj",
+        "projectName": "Blocks",
+        "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Blocks\\Blocks.csproj",
+        "packagesPath": "C:\\Users\\darkm\\.nuget\\packages\\",
+        "outputPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Blocks\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\darkm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj": {
+                "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj",
+        "projectName": "Calculator",
+        "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj",
+        "packagesPath": "C:\\Users\\darkm\\.nuget\\packages\\",
+        "outputPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\darkm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj": {
+                "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj",
+        "projectName": "Logger",
+        "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj",
+        "packagesPath": "C:\\Users\\darkm\\.nuget\\packages\\",
+        "outputPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\darkm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
