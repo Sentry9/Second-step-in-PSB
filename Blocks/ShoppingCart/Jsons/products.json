@@ -1,0 +1,8 @@
+[
+  {"productId": 1,"name":"Cucumber Athlet","price":214.99,"weight":1,"date":"2024-10-10","parametr":"Georgia"},
+  {"productId": 2,"name":"Cucumber Smooth","price":109.99,"weight":1,"date":"2024-10-27","parametr":"Russia"},
+  {"productId": 3,"name":"Mayo 365","price":51.99,"weight":0.35,"date":"2024-10-26","parametr":"67%"},
+  {"productId": 4,"name":"Mayo Maheev","price":149.99,"weight":0.8,"date":"2024-10-30","parametr":"50.5%"},
+  {"productId": 5,"name":"Tomato Flamenko","price":244.99,"weight":1,"date":"2024-11-04","parametr":"Russia"},
+  {"productId": 6,"name":"Tomato Pink","price":139.99,"weight":1,"date":"2024-11-05","parametr":"Azerbaijan"}
+]

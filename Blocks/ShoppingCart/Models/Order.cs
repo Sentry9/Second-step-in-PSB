@@ -2,23 +2,19 @@
 
 public class Order
 {
-    public int orderId;
+    public uint orderId;
     public double orderSum;
     public double orderWeight;
-    public List<Product> products = new List<Product>();
-    public int[] counts = new int[6];
+    private Dictionary<uint, Product> products;
 
-    public Order(int orderId)
+    public Order(uint orderId)
     {
         this.orderId = orderId;
     }
 
-    public void AddProduct(Product product, int count)
+    public void AddProduct(Product product, uint count)
     {
-        products.Add(product);
-        orderSum += product.price * count;
-        orderWeight += product.weight * count;
-        counts[products.Count] += count;
+        products.Add(count, product);
     }
     
     
