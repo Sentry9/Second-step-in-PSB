@@ -3,7 +3,9 @@
 using Calculator.Generator;
 using Calculator.Validator;
 using Logger;
-using Calculator;
+using Calculator.Calculator;
+using Calculator.Handler;
+
 class Program
 {
     public static void Main(string[] args)
@@ -30,16 +32,18 @@ class Program
 
                 if (answer == "y")
                 {
-                    Calculator.Calculator calc = new Calculator.Calculator(logger, valid);
-                    calc.Start();
-                    logger.Write("Then now it was method LogControl from class Calculator\n");
+                   ICalculator calc = new Calculator.Calculator.Calculator(logger, valid);
+                   logger.Write("Then now it was method LogControl from class Calculator\n");
+                   Handler handler = new Handler(valid, calc);
+                   handler.CalcOrArray();
                 }
                 else
                 {
-                    Calculator.Calculator calc = new Calculator.Calculator(null, valid);
-                    calc.Start();
+                    ICalculator calc = new Calculator.Calculator.Calculator(null, valid);
+                    Handler handler = new Handler(valid, calc);
+                    handler.CalcOrArray();
                 }
-                
+
             }
             else
             {
