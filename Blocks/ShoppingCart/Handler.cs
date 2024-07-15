@@ -8,7 +8,6 @@ namespace ShoppingCart;
 
 public class Handler
 {
-    public static uint orderId = 0;
     public static List<Product>? _products;
     private List<Order> orders = new List<Order>();
     private string? path = Directory.GetCurrentDirectory();
@@ -30,7 +29,7 @@ public class Handler
         _calc = new OrderCalc(null, null);
     }
 
-    public uint CreateOrder()
+    public int CreateOrder()
     {
         Order order = new Order();
         orders.Add(order);
@@ -47,17 +46,17 @@ public class Handler
         orders[id].SaveOrder(path);
     }
 
-    public void ShowProducts()
-    {
-        for (int i = 0; i < _products.Count; i++)
-        {
-            Console.WriteLine(_products[i].ToString());
-        }
-    }
+   // public void ShowProducts()
+   // {
+   //     for (int i = 0; i < _products.Count; i++)
+   //     {
+   //         Console.WriteLine(_products[i].ToString());
+   //     }
+   // }
 
-    public void ShowOrder(uint orderId)
+    public void ShowOrder(int orderId)
     {
-        orders[(int)orderId].PrintOrder();
+        orders[orderId].PrintOrder();
     }
 
     public void OrderAndOrder(int id, int id2)
@@ -129,7 +128,7 @@ public class Handler
     {
         Random random = new Random();
         int count = random.Next(1, _products.Count);
-        uint orderId = CreateOrder();
+        int orderId = CreateOrder();
         List<int> satisfyingProducts = new List<int>();
         for (int i = 0; i < _products.Count(); i++)
         {
@@ -139,20 +138,20 @@ public class Handler
         {
             int product = random.Next(0, satisfyingProducts.Count());
             int productCount = random.Next(1, 100);
-            orders[(int)orderId].AddProduct(product, (uint)productCount);
+            orders[orderId].AddProduct(product, (uint)productCount);
             satisfyingProducts.RemoveAt(product);
             if (satisfyingProducts.Count == 0)
             {
                 break;
             }
         }
-        orders[(int)orderId].SaveOrder(path);
+        orders[orderId].SaveOrder(path);
     }
     public void GenerateOrderBySum(double maxSum)
     {
         Random random = new Random();
         int count = random.Next(1, _products.Count());
-        uint orderId = CreateOrder();
+        int orderId = CreateOrder();
         List<int> satisfyingProducts = new List<int>();
         for (int i = 0; i < _products.Count(); i++)
         {
@@ -178,7 +177,7 @@ public class Handler
     {
         Random random = new Random();
         int count = random.Next(1, _products.Count());
-        uint orderId = CreateOrder();
+        int orderId = CreateOrder();
         List<int> satisfyingProducts = new List<int>();
         for (int i = 0; i < _products.Count(); i++)
         {
@@ -191,21 +190,21 @@ public class Handler
         {
             int id = random.Next(0, satisfyingProducts.Count);
             int productCount = random.Next(1, 100);
-            orders[(int)orderId].AddProduct(satisfyingProducts[id], (uint)productCount);
+            orders[orderId].AddProduct(satisfyingProducts[id], (uint)productCount);
             satisfyingProducts.RemoveAt(id);
             if (satisfyingProducts.Count == 0)
             {
                 break;
             }
         }
-        orders[(int)orderId].SaveOrder(path);
+        orders[orderId].SaveOrder(path);
     }
     public void GenerateOrderByCount(int maxCount)
     {
         int limit = maxCount;
         Random random = new Random();
         int count = random.Next(1, _products.Count());
-        uint orderId = CreateOrder();
+        int orderId = CreateOrder();
         List<int> satisfyingProducts = new List<int>();
         for (int i = 0; i < _products.Count(); i++)
         {
@@ -215,7 +214,7 @@ public class Handler
         {
             int product = random.Next(0, satisfyingProducts.Count());
             int productCount = random.Next(1, limit);
-            orders[(int)orderId].AddProduct(product, (uint)productCount);
+            orders[orderId].AddProduct(product, (uint)productCount);
             satisfyingProducts.RemoveAt(product);
             limit -= productCount;
             if ((satisfyingProducts.Count == 0) || (limit <= 0))
@@ -223,7 +222,7 @@ public class Handler
                 break;
             }
         }
-        orders[(int)orderId].SaveOrder(path);
+        orders[orderId].SaveOrder(path);
     }
 
     public void LINQtester(double maxSum, double minSum, int id, DateOnly date)
@@ -242,7 +241,7 @@ public class Handler
             ShowOrder(order.orderId);
             Console.WriteLine();
         }
-        var ordersWith = orders.Where(o => o.products.ContainsKey(id)).ToList();
+        var ordersWith = orders.Where(o => o.productsCount.ContainsKey(id)).ToList();
         Console.WriteLine("With\n\n\n\n\n\n\n");
         foreach (var order in ordersWith)
         {
@@ -255,6 +254,49 @@ public class Handler
         {
             ShowOrder(order.orderId);
             Console.WriteLine();
+        }
+        
+        var uniqueOrders = orders.Where(order =>
+            order.productsCount.Keys.Any(productId =>
+                orders.Where(o => o != order).All(o => !o.productsCount.ContainsKey(productId))
+            )
+        ).ToList();
+        Console.WriteLine("Unique\n\n\n\n\n");
+        foreach (var order in uniqueOrders)
+        {
+            ShowOrder(order.orderId);
+            Console.WriteLine();
+        }
+
+        var DeliveryOrders = orders.Where(o => o.DeliveryDate < date).ToList();
+        Console.WriteLine("Delivery\n\n\n\n\n\n\n");
+        foreach (var order in DeliveryOrders)
+        {
+            ShowOrder(order.orderId);
+            Console.WriteLine();
+        }
+    }
+
+    public void ShowProducts(string clientPath)
+    {
+        Dictionary<Product, int> products = new Dictionary<Product, int>();
+        try
+        {
+            string json = File.ReadAllText(clientPath);
+            Order order = JsonSerializer.Deserialize<Order>(json);
+            foreach (var product in order.productsCount)
+            {
+                products.Add(_products[product.Key], (int)product.Value);
+            }
+
+            foreach (var product in products)
+            {
+                Console.WriteLine($"{product.Key.ToString()}Количество - {product.Value}\n");
+            }
+        }
+        catch
+        {
+            
         }
     }
 }

@@ -4,18 +4,40 @@ namespace ShoppingCart.Models;
 
 public class Order
 {
-    public uint orderId { get; set; }
+    private static int _lastId = -1;
+    private static List<Product> _allProducts;
+    public int orderId { get; set; }
     public double orderSum { get; set; }
     public double orderWeight { get; set; }
-    public Dictionary<int, uint> products { get; set; }
+    public DateOnly DeliveryDate { get; set; }
+    public Dictionary<int, uint> productsCount { get; set; }
+    public Dictionary<int, Product> products { get; set; }
 
     public Order()
     {
-        orderId = Handler.orderId;
-        Handler.orderId++;
+        if (_lastId == -1)
+        {
+            LoadProducts(); 
+        }
+        orderId = ++_lastId;
         orderSum = 0;
         orderWeight = 0;
-        products = new Dictionary<int, uint>();
+        productsCount = new Dictionary<int, uint>();
+        DeliveryDate = DateOnly.MinValue;
+        products = new Dictionary<int, Product>();
+    }
+
+    private static void LoadProducts()
+    {
+        string? path = Directory.GetCurrentDirectory();
+        for (int i = 0; i < 4; i++)
+        {
+            path = Path.GetDirectoryName(path);
+        }
+        path = path + @"\ShoppingCart\Jsons\";
+        string[] files = Directory.GetFiles(path);
+        string json = File.ReadAllText(files[0]);
+        _allProducts = JsonSerializer.Deserialize<List<Product>>(json);
     }
 
     public static Order operator +(Order order, Product product)
@@ -35,7 +57,7 @@ public class Order
     }
     public static Order operator /(Order order, uint num)
     {
-        foreach (var product in order.products)
+        foreach (var product in order.productsCount)
         {
             order.RemoveProduct(product.Key, (uint)(product.Value * (1 - 1.0 / num)));
         }
@@ -43,7 +65,7 @@ public class Order
     }
     public static Order operator *(Order order, uint num)
     {
-        foreach (var product in order.products)
+        foreach (var product in order.productsCount)
         {
             order.AddProduct(product.Key, product.Value * (num - 1));
         }
@@ -52,9 +74,9 @@ public class Order
     public static Order operator -(Order order, Order order2)
     {
         bool checker = true;
-        foreach (var product in order2.products)
+        foreach (var product in order2.productsCount)
         {
-            if (!order.products.TryGetValue(product.Key, out uint value))
+            if (!order.productsCount.TryGetValue(product.Key, out uint value))
             {
                 checker = false;
                 Console.WriteLine("Всё херня");
@@ -64,7 +86,7 @@ public class Order
 
         if (checker)
         {
-            foreach (var product in order2.products)
+            foreach (var product in order2.productsCount)
             {
                 order.RemoveProduct(product.Key, product.Value);
             }
@@ -75,33 +97,44 @@ public class Order
     
     public void AddProduct(int productId, uint count)
     {
-        if (products.TryGetValue(productId, out uint value))
+        if (productsCount.TryGetValue(productId, out uint value))
         {
-            products[productId] += count;
+            productsCount[productId] += count;
         }
         else
         {
-            products.Add(productId, count);
+            productsCount.Add(productId, count);
+            products.Add(productId, _allProducts[productId]);
+            DeliveryDate = products.Values.Max(p => p.date);
         }
-        orderSum = Math.Round(orderSum + Handler._products[productId].price * count, 2);
-        orderWeight = Math.Round(orderWeight + Handler._products[productId].weight * count, 2);
+        orderSum = Math.Round(orderSum + products[productId].price * count, 2);
+        orderWeight = Math.Round(orderWeight + products[productId].weight * count, 2);
     }
 
     public void RemoveProduct(int productId, uint count)
     {
-        if (products.TryGetValue(productId, out uint value))
+        if (productsCount.TryGetValue(productId, out uint value))
         {
             if (value > count)
             {
-                products[productId] -= count;
-                orderSum = Math.Round(orderSum - Handler._products[productId].price * count, 2);
-                orderWeight = Math.Round(orderWeight - Handler._products[productId].weight * count, 2);
+                productsCount[productId] -= count;
+                orderSum = Math.Round(orderSum - products[productId].price * count, 2);
+                orderWeight = Math.Round(orderWeight - products[productId].weight * count, 2);
             }
             else
             {
+                orderSum = Math.Round(orderSum - products[productId].price * value, 2);
+                orderWeight = Math.Round(orderWeight - products[productId].weight * value, 2);
+                productsCount.Remove(productId);
                 products.Remove(productId);
-                orderSum = Math.Round(orderSum - Handler._products[productId].price * value, 2);
-                orderWeight = Math.Round(orderWeight - Handler._products[productId].weight * value, 2);
+                if (products.Count == 0)
+                {
+                    DeliveryDate = DateOnly.MinValue;
+                }
+                else
+                {
+                    DeliveryDate = products.Values.Max(p => p.date);
+                }
             }
         }
     }
@@ -120,8 +153,8 @@ public class Order
 
     public void PrintOrder()
     {
-        Console.WriteLine($"{orderId}\n{orderSum}\n{orderWeight}");
-        foreach (var product in products)
+        Console.WriteLine($"{orderId}\n{orderSum}\n{orderWeight}\n{DeliveryDate}");
+        foreach (var product in productsCount)
         {
             Console.WriteLine($"{product.Key} : {product.Value}");
         }

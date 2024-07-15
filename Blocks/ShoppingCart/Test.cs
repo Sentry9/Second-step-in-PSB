@@ -21,22 +21,12 @@ class Program
         //handler.SaveOrder(1);
         //handler.OrderAndNum(1, "/", 4);
         //handler.ProductAndProduct(0, 1);
-        for (int i = 0; i < 5; i++)
-        {
-            handler.GenerateOrder();  
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            handler.GenerateOrderByCount(10);  
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            handler.GenerateOrderBySum(170); 
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            handler.GenerateOrderBySum(140, 240);  
-        }
-        handler.LINQtester(20000,20000, 4, DateOnly.MaxValue );
+
+        //handler.GenerateOrder();
+        //handler.GenerateOrderByCount(10);
+        //handler.GenerateOrderBySum(170);
+        //handler.GenerateOrderBySum(140, 240);
+        //handler.LINQtester(20000,20000, 4, new DateOnly(2024, 10, 27));
+        handler.ShowProducts(@"D:\PSB\Second-step-in-PSB\Blocks\ShoppingCart\Jsons\orders\order2.json");
     }
 }
