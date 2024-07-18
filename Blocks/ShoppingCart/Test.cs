@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using ShoppingCart.Validator;
 
 namespace ShoppingCart;
 
@@ -10,7 +11,8 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Handler handler = new Handler();
+        IValidator validator = new Validator.Validator();
+        Handler handler = new Handler(validator);
         //handler.CreateOrder();
         //handler.AddProduct(0, 1, 45);
         //handler.AddProduct(0, 3, 23);
@@ -22,11 +24,6 @@ class Program
         //handler.OrderAndNum(1, "/", 4);
         //handler.ProductAndProduct(0, 1);
 
-        //handler.GenerateOrder();
-        //handler.GenerateOrderByCount(10);
-        //handler.GenerateOrderBySum(170);
-        //handler.GenerateOrderBySum(140, 240);
-        //handler.LINQtester(20000,20000, 4, new DateOnly(2024, 10, 27));
-        handler.ShowProducts(@"D:\PSB\Second-step-in-PSB\Blocks\ShoppingCart\Jsons\orders\order2.json");
+        handler.ShowProducts(@"D:\PSB\Second-step-in-PSB\Blocks\ShoppingCart\Jsons\products.json");
     }
 }

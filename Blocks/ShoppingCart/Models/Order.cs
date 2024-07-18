@@ -10,7 +10,7 @@ public class Order
     public double orderSum { get; set; }
     public double orderWeight { get; set; }
     public DateOnly DeliveryDate { get; set; }
-    public Dictionary<int, uint> productsCount { get; set; }
+    public Dictionary<int, int> productsCount { get; set; }
     public Dictionary<int, Product> products { get; set; }
 
     public Order()
@@ -22,11 +22,13 @@ public class Order
         orderId = ++_lastId;
         orderSum = 0;
         orderWeight = 0;
-        productsCount = new Dictionary<int, uint>();
+        productsCount = new Dictionary<int, int>();
         DeliveryDate = DateOnly.MinValue;
         products = new Dictionary<int, Product>();
     }
-
+/// <summary>
+/// Метод для загрузки списка продуктов(ассортимента)
+/// </summary>
     private static void LoadProducts()
     {
         string? path = Directory.GetCurrentDirectory();
@@ -39,31 +41,60 @@ public class Order
         string json = File.ReadAllText(files[0]);
         _allProducts = JsonSerializer.Deserialize<List<Product>>(json);
     }
-
+/// <summary>
+/// Перегрузка сложения заказа и продукта
+/// </summary>
+/// <param name="order">Сам заказ</param>
+/// <param name="product">Продукт, который мы хотим добавить</param>
+/// <returns>Возвращает обновлённый заказ</returns>
     public static Order operator +(Order order, Product product)
     {
         order.AddProduct(product.productId, 1);
         return order;
     }
+    /// <summary>
+    /// Перегрузка вычитания продукта из заказа
+    /// </summary>
+    /// <param name="order">Сам заказ</param>
+    /// <param name="product">Продукт, который мы хотим вычесть</param>
+    /// <returns>Возвращает обновлённый заказ</returns>
     public static Order operator -(Order order, Product product)
     {
         order.RemoveProduct(product.productId, 1);
         return order;
     }
+    /// <summary>
+    /// Перегрузка деления на продукт
+    /// </summary>
+    /// <param name="order">Сам заказ</param>
+    /// <param name="product">Продукт, который мы хотим убрать</param>
+    /// <returns>Возвращает обновлённый заказ</returns>
     public static Order operator /(Order order, Product product)
     {
-        order.RemoveProduct(product.productId, uint.MaxValue);
+        order.RemoveProduct(product.productId, int.MaxValue);
         return order;
     }
-    public static Order operator /(Order order, uint num)
+    /// <summary>
+    /// Перегрузка деления на число
+    /// </summary>
+    /// <param name="order">Сам заказ</param>
+    /// <param name="num">Во сколько раз мы хотим уменьшить</param>
+    /// <returns>Возвращает обновлённый заказ</returns>
+    public static Order operator /(Order order, int num)
     {
         foreach (var product in order.productsCount)
         {
-            order.RemoveProduct(product.Key, (uint)(product.Value * (1 - 1.0 / num)));
+            order.RemoveProduct(product.Key, (int)(product.Value * (1 - 1.0 / num)));
         }
         return order;
     }
-    public static Order operator *(Order order, uint num)
+    /// <summary>
+    /// Перегрузка умножения на число
+    /// </summary>
+    /// <param name="order">Сам заказ</param>
+    /// <param name="num">Во сколько раз хотим увеличить</param>
+    /// <returns>Возвращает обновлённый заказ</returns>
+    public static Order operator *(Order order, int num)
     {
         foreach (var product in order.productsCount)
         {
@@ -71,12 +102,18 @@ public class Order
         }
         return order;
     }
+    /// <summary>
+    /// Перегрузка вычитания заказов
+    /// </summary>
+    /// <param name="order">Заказ из которого вычитаем</param>
+    /// <param name="order2">Заказ который вычитаем</param>
+    /// <returns>Возвращает обновлённый заказ</returns>
     public static Order operator -(Order order, Order order2)
     {
         bool checker = true;
         foreach (var product in order2.productsCount)
         {
-            if (!order.productsCount.TryGetValue(product.Key, out uint value))
+            if (!order.productsCount.TryGetValue(product.Key, out int value))
             {
                 checker = false;
                 Console.WriteLine("Всё херня");
@@ -94,10 +131,14 @@ public class Order
 
         return order;
     }
-    
-    public void AddProduct(int productId, uint count)
+    /// <summary>
+    /// Метод для добавления продукта в заказ
+    /// </summary>
+    /// <param name="productId">Номер продукта для добавления</param>
+    /// <param name="count">Сколько мы хотим добавить</param>
+    public void AddProduct(int productId, int count)
     {
-        if (productsCount.TryGetValue(productId, out uint value))
+        if (productsCount.TryGetValue(productId, out int value))
         {
             productsCount[productId] += count;
         }
@@ -110,10 +151,14 @@ public class Order
         orderSum = Math.Round(orderSum + products[productId].price * count, 2);
         orderWeight = Math.Round(orderWeight + products[productId].weight * count, 2);
     }
-
-    public void RemoveProduct(int productId, uint count)
+    /// <summary>
+    /// Метод для удаления продукта из заказа
+    /// </summary>
+    /// <param name="productId">Номер продукта для удаления</param>
+    /// <param name="count">Сколько мы хотим убрать</param>
+    public void RemoveProduct(int productId, int count)
     {
-        if (productsCount.TryGetValue(productId, out uint value))
+        if (productsCount.TryGetValue(productId, out int value))
         {
             if (value > count)
             {
@@ -138,7 +183,10 @@ public class Order
             }
         }
     }
-
+    /// <summary>
+    /// Метод для сохранения заказа
+    /// </summary>
+    /// <param name="path">Путь к директории в которую сохранияем заказ</param>
     public void SaveOrder(string path)
     {
         path += @"\orders\";
@@ -150,7 +198,9 @@ public class Order
         path += $"order{orderId}.json";
         File.WriteAllText(path, jsonString);
     }
-
+    /// <summary>
+    /// Метод для вывода информации о заказе в консоль
+    /// </summary>
     public void PrintOrder()
     {
         Console.WriteLine($"{orderId}\n{orderSum}\n{orderWeight}\n{DeliveryDate}");

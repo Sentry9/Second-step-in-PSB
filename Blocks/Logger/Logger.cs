@@ -4,7 +4,7 @@
 /// </summary>
 public class Logger : ILogger
 {
-    public void Write(string message)
+    public void Log(string message)
     {
         Console.WriteLine(message);
     }

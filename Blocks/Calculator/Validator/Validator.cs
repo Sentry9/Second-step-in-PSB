@@ -17,7 +17,7 @@ public class Validator : IValidator
         }
         else
         {
-            _logger.Write("Invalid number input.\n");
+            _logger.Log("Invalid number input.\n");
             return false;
         }
     }
@@ -30,7 +30,7 @@ public class Validator : IValidator
         }
         else
         {
-            _logger.Write("Invalid input.\n");
+            _logger.Log("Invalid input.\n");
             return false;
         }
     }
@@ -42,7 +42,7 @@ public class Validator : IValidator
         }
         else
         {
-            _logger.Write("Invalid numbers input.\n");
+            _logger.Log("Invalid numbers input.\n");
             return false;
         }
     }
@@ -51,7 +51,7 @@ public class Validator : IValidator
     {
         if (input.Length != 3)
         {
-            _logger.Write("Invalid form of input\n");
+            _logger.Log("Invalid form of input\n");
             return false;
         }
         else
@@ -68,7 +68,7 @@ public class Validator : IValidator
         }
         else
         {
-            _logger.Write("Invalid operation input.\n");
+            _logger.Log("Invalid operation input.\n");
             return false;
         }
     }
@@ -81,7 +81,7 @@ public class Validator : IValidator
         }
         else
         {
-            _logger.Write("Invalid mode input.\n");
+            _logger.Log("Invalid mode input.\n");
             return false;
         }
     }
@@ -94,7 +94,7 @@ public class Validator : IValidator
         }
         else
         {
-            _logger.Write("Invalid input. Please enter 'y' or 'n'.\n");
+            _logger.Log("Invalid input. Please enter 'y' or 'n'.\n");
             return false;
         }
     }
@@ -107,7 +107,7 @@ public class Validator : IValidator
         }
         else
         {
-            _logger.Write("Invalid input\n");
+            _logger.Log("Invalid input\n");
             return false;
         }
     }

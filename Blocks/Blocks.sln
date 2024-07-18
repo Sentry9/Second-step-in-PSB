@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart", "ShoppingCart\ShoppingCart.csproj", "{44C75AA7-55D4-41D4-B30B-40DB9234A420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingcartTests", "ShoppingcartTests\ShoppingcartTests.csproj", "{49344B97-97FB-4BA5-8701-5D585FD2DF2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingСartTests", "ShoppingСartTests\ShoppingСartTests.csproj", "{49344B97-97FB-4BA5-8701-5D585FD2DF2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

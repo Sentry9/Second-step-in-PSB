@@ -33,7 +33,7 @@ class Program
                 if (answer == "y")
                 {
                    ICalculator calc = new Calculator.Calculator.Calculator(logger, valid);
-                   logger.Write("Then now it was method LogControl from class Calculator\n");
+                   logger.Log("Then now it was method LogControl from class Calculator\n");
                    Handler handler = new Handler(valid, calc);
                    handler.CalcOrArray();
                 }

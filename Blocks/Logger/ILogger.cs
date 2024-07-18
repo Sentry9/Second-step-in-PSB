@@ -2,5 +2,5 @@
 
 public interface ILogger
 {
-    public void Write(string message);
+    public void Log(string message);
 }

@@ -1,6 +1,7 @@
 ﻿using Calculator.Calculator;
 using Calculator.Validator;
 using Logger;
+using ShoppingCart.Exceptions;
 using ShoppingCart.Models;
 
 namespace ShoppingCart;
@@ -16,6 +17,10 @@ public class OrderCalc : Calculator.Calculator.Calculator
     }
     public Order Calculate(Order order, string op, Product product)
     {
+        if (_logger != null)
+        {
+            _logger.Log("Now starting operation with Order and Product");
+        }
         switch (op)
         {
             case "+":
@@ -25,17 +30,25 @@ public class OrderCalc : Calculator.Calculator.Calculator
             case "/":
                 return order / product;
             default:
-                return order;
+                throw new CalcException("Такая операция не поддерживается");
         }
     }
 
     public Order Calculate(Order order, Order secondOrder)
     {
+        if (_logger != null)
+        {
+            _logger.Log("Now starting operation with Order and Order");
+        }
         return order - secondOrder;
     }
 
-    public Order Calculate(Order order, string op, uint num)
+    public Order Calculate(Order order, string op, int num)
     {
+        if (_logger != null)
+        {
+            _logger.Log("Now starting operation with Order and Num");
+        }
         switch (op)
         {
             case "/":
@@ -43,12 +56,16 @@ public class OrderCalc : Calculator.Calculator.Calculator
             case "*":
                 return order * num;
             default:
-                return order;
+                throw new CalcException("Такая операция не поддерживается");
         }
     }
 
     public Order Calculate(Product product, Product secondProduct)
     {
+        if (_logger != null)
+        {
+            _logger.Log("Now starting operation with Product and Product");
+        }
         return product + secondProduct;
     }
 }

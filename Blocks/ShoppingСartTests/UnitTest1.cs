@@ -1,9 +1,11 @@
-using Moq;
 using Calculator.Validator;
 using Logger;
+using Moq;
+using ShoppingCart;
+using ShoppingCart.Exceptions;
 using ShoppingCart.Models;
 
-namespace ShoppingCart.Tests
+namespace ShoppingСartTests
 {
     [TestFixture]
     public class OrderCalcTests
@@ -50,7 +52,7 @@ namespace ShoppingCart.Tests
                 orderId = 1,
                 orderSum = 214.99,
                 orderWeight = 1,
-                productsCount = new Dictionary<int, uint> { { 0, 1 } },
+                productsCount = new Dictionary<int, int> { { 0, 1 } },
                 DeliveryDate = new DateOnly(2024, 10, 10),
                 products = new Dictionary<int, Product> { { 0, _product1} },
             };
@@ -72,7 +74,7 @@ namespace ShoppingCart.Tests
                     orderId = 1,
                     orderSum = 266.98,
                     orderWeight = 1.35,
-                    productsCount = new Dictionary<int, uint> { { 0, 1 }, { 2, 1 } },
+                    productsCount = new Dictionary<int, int> { { 0, 1 }, { 2, 1 } },
                     DeliveryDate = new DateOnly(2024, 10, 26),
                     products = new Dictionary<int, Product> { { 0, _product1 }, { 2, _product2 } },
             };
@@ -91,7 +93,7 @@ namespace ShoppingCart.Tests
                 orderId = 1,
                 orderSum = 429.98,
                 orderWeight = 2,
-                productsCount = new Dictionary<int, uint> { { 0, 2 } },
+                productsCount = new Dictionary<int, int> { { 0, 2 } },
                 DeliveryDate = new DateOnly(2024, 10, 10),
                 products = new Dictionary<int, Product> { { 0, _product1 } },
             };
@@ -113,7 +115,7 @@ namespace ShoppingCart.Tests
                 orderId = 1,
                 orderSum = 266.98,
                 orderWeight = 1.35,
-                productsCount = new Dictionary<int, uint> { { 0, 1 }, { 2, 1 } },
+                productsCount = new Dictionary<int, int> { { 0, 1 }, { 2, 1 } },
                 DeliveryDate = new DateOnly(2024, 10, 26),
                 products = new Dictionary<int, Product> { { 0, _product1 }, { 2, _product2 } },
             };
@@ -122,7 +124,7 @@ namespace ShoppingCart.Tests
                 orderId = 2,
                 orderSum = 51.99,
                 orderWeight = 0.35,
-                productsCount = new Dictionary<int, uint> { { 2, 1 } },
+                productsCount = new Dictionary<int, int> { { 2, 1 } },
                 DeliveryDate = new DateOnly(2024, 10, 26),
                 products = new Dictionary<int, Product> { { 2, _product2 } },
             };
@@ -144,11 +146,11 @@ namespace ShoppingCart.Tests
                 orderId = 1,
                 orderSum = 429.98,
                 orderWeight = 2,
-                productsCount = new Dictionary<int, uint> { { 0, 2 } },
+                productsCount = new Dictionary<int, int> { { 0, 2 } },
                 DeliveryDate = new DateOnly(2024, 10, 10),
                 products = new Dictionary<int, Product> { { 0, _product1 } },
             };
-            uint divisor = 2;
+            int divisor = 2;
             var expectedOrder = order / divisor;
         
             // Act
@@ -167,11 +169,11 @@ namespace ShoppingCart.Tests
                 orderId = 1,
                 orderSum = 214.99,
                 orderWeight = 1,
-                productsCount = new Dictionary<int, uint> { { 0, 1 } },
+                productsCount = new Dictionary<int, int> { { 0, 1 } },
                 DeliveryDate = new DateOnly(2024, 10, 10),
                 products = new Dictionary<int, Product> { { 0, _product1 } },
             };
-            uint multiplier = 3;
+            int multiplier = 3;
             var expectedOrder = order * multiplier;
         
             // Act
@@ -206,16 +208,14 @@ namespace ShoppingCart.Tests
                 orderId = 1,
                 orderSum = 214.99,
                 orderWeight = 1,
-                productsCount = new Dictionary<int, uint> { { 0, 1 } },
+                productsCount = new Dictionary<int, int> { { 0, 1 } },
                 DeliveryDate = new DateOnly(2024, 10, 10),
                 products = new Dictionary<int, Product> { { 0, _product1 } },
             };
         
-            // Act
-            var result = _orderCalc.Calculate(order, "invalid_op", _product2);
-        
-            // Assert
-            Assert.AreEqual(order, result);
+            // Act & Assert
+            var result = Assert.Throws<CalcException>(() =>_orderCalc.Calculate(order, "invalid_op", _product2));
+            Assert.AreEqual("Такая операция не поддерживается", result.Message);
         }
         
         [Test]
@@ -227,16 +227,14 @@ namespace ShoppingCart.Tests
                 orderId = 1,
                 orderSum = 214.99,
                 orderWeight = 1,
-                productsCount = new Dictionary<int, uint> { { 0, 1 } },
+                productsCount = new Dictionary<int, int> { { 0, 1 } },
                 DeliveryDate = new DateOnly(2024, 10, 10),
                 products = new Dictionary<int, Product> { { 0, _product1 } },
             };
         
-            // Act
-            var result = _orderCalc.Calculate(order, "invalid_op", 2);
-        
-            // Assert
-            Assert.AreEqual(order, result);
+            // Act & Assert
+            var result = Assert.Throws<CalcException>(() => _orderCalc.Calculate(order, "invalid_op", 2));
+            Assert.AreEqual("Такая операция не поддерживается", result.Message);
         }
     }
 }

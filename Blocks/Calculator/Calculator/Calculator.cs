@@ -21,7 +21,7 @@ namespace Calculator.Calculator
         {
             if (_logger != null)
             {
-                _logger.Write("Now starting method Array from class Calculator");
+                _logger.Log("Now starting method Array from class Calculator");
             }
             string len;
             string[] parts;
@@ -61,16 +61,16 @@ namespace Calculator.Calculator
             }
             if (_logger != null)
             {
-                _logger.Write("Method Array from class Calculator finished without problems");
+                _logger.Log("Method Array from class Calculator finished without problems");
             }
             return ($"Max : {numbers.Max()}\nMin : {numbers.Min()}");
         }
 
-        public double Calculate(double num1, double num2, string op)
+        public virtual double Calculate(double num1, double num2, string op)
         {
             if (_logger != null)
             {
-                _logger.Write("Now starting method Calculate from class Calculator");
+                _logger.Log("Now starting method Calculate from class Calculator");
             }
 
             switch (op)
@@ -93,7 +93,7 @@ namespace Calculator.Calculator
             }
             if (_logger != null)
             {
-                _logger.Write("Method Calculate from class Calculator finished without problems");
+                _logger.Log("Method Calculate from class Calculator finished without problems");
             }
             return Math.Round(Result, 4);
         }
