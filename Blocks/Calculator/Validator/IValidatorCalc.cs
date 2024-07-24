@@ -1,6 +1,6 @@
 ﻿namespace Calculator.Validator;
 
-public interface IValidator
+public interface IValidatorCalc
 {
     bool ValidateDouble(string input, out double num);
     bool ValidateOperation(string operation);

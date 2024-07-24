@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart", "ShoppingCar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingСartTests", "ShoppingСartTests\ShoppingСartTests.csproj", "{49344B97-97FB-4BA5-8701-5D585FD2DF2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterfaces", "UserInterfaces\UserInterfaces.csproj", "{2E89B4DB-DDA7-45D5-A7B2-B6AE5FCAAEDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{49344B97-97FB-4BA5-8701-5D585FD2DF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49344B97-97FB-4BA5-8701-5D585FD2DF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49344B97-97FB-4BA5-8701-5D585FD2DF2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E89B4DB-DDA7-45D5-A7B2-B6AE5FCAAEDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E89B4DB-DDA7-45D5-A7B2-B6AE5FCAAEDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E89B4DB-DDA7-45D5-A7B2-B6AE5FCAAEDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E89B4DB-DDA7-45D5-A7B2-B6AE5FCAAEDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

@@ -11,7 +11,7 @@ namespace ShoppingСartTests
     public class OrderCalcTests
     {
         private Mock<ILogger> _loggerMock;
-        private Mock<IValidator> _validatorMock;
+        private Mock<IValidatorCalc> _validatorMock;
         private OrderCalc _orderCalc;
         private Product _product1;
         private Product _product2;
@@ -20,7 +20,7 @@ namespace ShoppingСartTests
         public void Setup()
         {
             _loggerMock = new Mock<ILogger>();
-            _validatorMock = new Mock<IValidator>();
+            _validatorMock = new Mock<IValidatorCalc>();
             _orderCalc = new OrderCalc(_loggerMock.Object, _validatorMock.Object);
 
             _product1 = new Product

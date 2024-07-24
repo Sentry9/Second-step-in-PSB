@@ -33,19 +33,47 @@ public class Validator : IValidator
         {
             using (JsonDocument doc = JsonDocument.Parse(json))
             {
-                JsonElement root = doc.RootElement;
-                if (!root.TryGetProperty("orderId", out _)) return false;
-                if (!root.TryGetProperty("orderSum", out _)) return false;
-                if (!root.TryGetProperty("orderWeight", out _)) return false;
-                if (!root.TryGetProperty("productsCount", out _)) return false;
-                if (!root.TryGetProperty("DeliveryDate", out _)) return false;
-                if (!root.TryGetProperty("products", out _)) return false;
-                return true;
+                if (doc.RootElement.ValueKind == JsonValueKind.Array)
+                {
+                  return false;
+                }
             }
+            
+            var order = JsonSerializer.Deserialize<Order>(json);
+
+            if (order.orderId < 0)
+            {
+                return false;
+            }
+            if (order.orderSum < 0)
+            {
+                return false;
+            }
+            if (order.orderWeight < 0)
+            {
+                return false;
+            }
+            if (!ValidateDate(order.DeliveryDate))
+            {
+                return false;
+            }
+            if (order.productsCount == null || order.products == null)
+            {
+                return false;
+            }
+            foreach (var productId in order.productsCount.Keys)
+            {
+                if (!order.products.ContainsKey(productId))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
-        catch (JsonException)
+        catch (JsonException ex)
         {
-            return false;
+            throw new Exception("Ошибка при чтении JSON файла: " + ex.Message);
         }
     }
 

@@ -34,14 +34,24 @@ public class Handler
         _calc = new OrderCalc(null, null);
         _validator = validator;
     }
-
+    
+    /// <summary>
+    /// Метод для создания заказа
+    /// </summary>
+    /// <returns>Номер заказа</returns>
     public int CreateOrder()
     {
         Order order = new Order();
         orders.Add(order);
         return order.orderId;
     }
-
+    /// <summary>
+    /// Метод для добавления продукта в заказ
+    /// </summary>
+    /// <param name="idInput">Номер заказ</param>
+    /// <param name="productIdInput">Номер продукта</param>
+    /// <param name="countInput">Количество продукта</param>
+    /// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
     public void AddProduct(string idInput, string productIdInput, string countInput)
     {
         if (_validator.ValidateInputInt(idInput, out int id) &&
@@ -63,7 +73,11 @@ public class Handler
             throw new ValidatorException("При добавлении продукта введены некорректные данные входные данные");
         }
     }
-
+    /// <summary>
+    /// Метод для сохранения заказа в виде json файла
+    /// </summary>
+    /// <param name="idInput">Номер заказа</param>
+    /// <exception cref="ValidatorException">Выбрасывается при неврных входных данных</exception>
     public void SaveOrder(string idInput)
     {
         if (_validator.ValidateInputInt(idInput, out int id))
@@ -83,7 +97,9 @@ public class Handler
             throw new ValidatorException("Введён некорректный номер заказа");
         }
     }
-
+    /// <summary>
+    /// Метод для вывода списка продуктов
+    /// </summary>
     public void ShowAssortment()
     {
         for (int i = 0; i < _products.Count; i++)
@@ -91,7 +107,11 @@ public class Handler
             Console.WriteLine(_products[i].ToString());
         }
     }
-
+    /// <summary>
+    /// Метод для вывода заказа
+    /// </summary>
+    /// <param name="idInput">Номер заказа</param>
+    /// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
     public void ShowOrder(string idInput)
     {
         if (_validator.ValidateInputInt(idInput, out int id))
@@ -111,7 +131,11 @@ public class Handler
             throw new ValidatorException("Введён некорректный номер заказа");
         }
     }
-
+    /// <summary>
+    /// Метод для вычитания заказа из заказа
+    /// </summary>
+    /// <param name="idInput">Номер заказа из которого вычитают</param>
+    /// <param name="id2Input">Номер заказа который вычитают</param>
     public void OrderAndOrder(string idInput, string id2Input)
     {
         if (_validator.ValidateInputInt(idInput, out int id) && _validator.ValidateInputInt(id2Input, out int id2))
@@ -129,7 +153,13 @@ public class Handler
             
         }
     }
-
+    /// <summary>
+    /// Метод для вычесления операции между заказом и числом
+    /// </summary>
+    /// <param name="idInput">Номер заказа</param>
+    /// <param name="op">Знак операции</param>
+    /// <param name="numInput">Число</param>
+    /// <exception cref="ValidatorException">Выбрасывается при неверных вводных данных</exception>
     public void OrderAndNum(string idInput, string op, string numInput)
     {
         if (_validator.ValidateInputInt(idInput, out int id) && _validator.ValidateInputCount(numInput, out int num))
@@ -150,7 +180,12 @@ public class Handler
             throw new ValidatorException("Введён некорректный номер заказа или число");
         }
     }
-    
+    /// <summary>
+    /// Метод для сложения двух продуктов
+    /// </summary>
+    /// <param name="idInput">Номер первого продукта</param>
+    /// <param name="id2Input">Номер второго продукта</param>
+    /// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
     public void ProductAndProduct(string idInput, string id2Input)
     {
         if(_validator.ValidateInputInt(idInput, out int id) && _validator.ValidateInputInt(id2Input, out int id2))
@@ -171,7 +206,13 @@ public class Handler
             throw new ValidatorException("Введён некорректный номер заказа");
         }
     }
-
+    /// <summary>
+    /// Метод для вычисления операции между заказом и продуктом
+    /// </summary>
+    /// <param name="idInput">Номер заказа</param>
+    /// <param name="op">Знак операции</param>
+    /// <param name="productIdInput">Номер продукта</param>
+    /// <exception cref="ValidationException">Выбрасывается при неверных входных данных</exception>
     public void OrderAndProduct(string idInput, string op, string productIdInput)
     {
         if (_validator.ValidateInputInt(idInput, out int id) &&
@@ -474,6 +515,10 @@ public class Handler
                 {
                     Console.WriteLine($"{product.Key.ToString()}Количество - {product.Value}\n");
                 }
+            }
+            else
+            {
+                throw new JsonException("Некорректный файл");
             }
         }
         else

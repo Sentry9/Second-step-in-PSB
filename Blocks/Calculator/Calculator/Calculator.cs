@@ -6,15 +6,15 @@ namespace Calculator.Calculator
     public class Calculator : ICalculator
     {
         private readonly ILogger _logger;
-        private readonly IValidator _validator;
+        private readonly IValidatorCalc _validatorCalc;
         private double Result;
         private int Len;
         private double NumCheck;
 
-        public Calculator(ILogger logger, IValidator validator)
+        public Calculator(ILogger logger, IValidatorCalc validatorCalc)
         {
             _logger = logger;
-            _validator = validator;
+            _validatorCalc = validatorCalc;
         }
 
         public string Array()
@@ -30,7 +30,7 @@ namespace Calculator.Calculator
             {
                 Console.WriteLine("Input len of array\n");
                 len = Console.ReadLine();
-            } while (!_validator.ValidateInt(len, out Len));
+            } while (!_validatorCalc.ValidateInt(len, out Len));
 
             do
             {
@@ -46,7 +46,7 @@ namespace Calculator.Calculator
                 {
                     for (int i = 0; i < Len; i++)
                     {
-                        if (!_validator.ValidateDouble(parts[i], out NumCheck))
+                        if (!_validatorCalc.ValidateDouble(parts[i], out NumCheck))
                         {
                             checker = false;
                         }

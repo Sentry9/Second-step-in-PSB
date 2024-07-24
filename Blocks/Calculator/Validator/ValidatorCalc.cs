@@ -2,10 +2,10 @@
 
 namespace Calculator.Validator;
 
-public class Validator : IValidator
+public class ValidatorCalc : IValidatorCalc
 {
     private readonly ILogger _logger;
-    public Validator(ILogger logger)
+    public ValidatorCalc(ILogger logger)
     {
         _logger = logger;
     }
