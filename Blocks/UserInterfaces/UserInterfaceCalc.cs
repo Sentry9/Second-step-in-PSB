@@ -12,13 +12,12 @@ public class UserInterfaceCalc : UserInterface
     {
         ILogger logger = new Logger.Logger();
         IValidatorCalc validCalc = new ValidatorCalc(logger);
-        LoggerStatus loggerStatus;
         string input;
         do
         {
             do
             {
-                Console.WriteLine("Выберите режим\n1 - калькулятор\n2 - генератор\n e - exit");
+                Console.WriteLine("Выберите режим\n1 - калькулятор\n2 - генератор\ne - exit");
                 input = Console.ReadLine();
             } while (!validCalc.ValidateStart(input));
 
@@ -31,7 +30,7 @@ public class UserInterfaceCalc : UserInterface
                     answer = Console.ReadLine();
                 } while (!validCalc.ValidateLogControl(answer));
 
-                loggerStatus = LoggerControl(answer);
+                var loggerStatus = LoggerControl(answer);
                 if (loggerStatus == LoggerStatus.On)
                 {
                     ICalculator calc = new Calculator.Calculator.Calculator(logger, validCalc);

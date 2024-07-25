@@ -10,7 +10,7 @@ public static class Generator
     public static void ChooseGenerate()
     {
         ILogger logger = new Logger.Logger();
-        IValidatorCalc valid = new Validator.ValidatorCalc(logger);
+        IValidatorCalc valid = new ValidatorCalc(logger);
         string choosen;
         do
         {

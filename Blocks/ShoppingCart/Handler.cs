@@ -19,19 +19,19 @@ public class Handler
     private readonly OrderCalc _calc;
     private string? productsPath;
 
-    public Handler(IValidator validator)
+    public Handler(IValidator validator, Logger.Logger logger)
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             path = Path.GetDirectoryName(path);
         }
 
-        path = path + @"\Jsons\";
+        path = path + @"\ShoppingCart\Jsons\";
         productsPath = path + "products.json";
         string[] files = Directory.GetFiles(path);
         string json = File.ReadAllText(files[0]);
         _products = JsonSerializer.Deserialize<List<Product>>(json);
-        _calc = new OrderCalc(null, null);
+        _calc = new OrderCalc(logger, null);
         _validator = validator;
     }
     
@@ -234,7 +234,15 @@ public class Handler
             throw new ValidationException("Введён некорректный номер заказа или продукта");
         }
     }
-
+/// <summary>
+/// Метод для изменения продуктов из ассортимента
+/// </summary>
+/// <param name="id">Номер продукта</param>
+/// <param name="name">Название</param>
+/// <param name="price">Цена</param>
+/// <param name="weight">Вес</param>
+/// <param name="date">Дата доставки</param>
+/// <param name="param">Уникальный параметр</param>
     public void ChangeProduct(int id, string? name = null, double price = -1.0, double weight = -1.0,
         DateOnly date = default, string? param = null)
     {
@@ -276,7 +284,9 @@ public class Handler
         string jsonString = JsonSerializer.Serialize(_products, options);
         File.WriteAllText(productsPath, jsonString);
     }
-
+/// <summary>
+/// Метод для генерации продукта
+/// </summary>
     public void GenerateOrder()
     {
         Random random = new Random();
@@ -300,6 +310,11 @@ public class Handler
         }
         orders[orderId].SaveOrder(path);
     }
+/// <summary>
+/// Метод для генерации набора продуктов, чья сумма меньше maxSum
+/// </summary>
+/// <param name="maxSumInput">Строковое представление максимальной стоимости продукта</param>
+/// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
     public void GenerateOrderBySum(string maxSumInput)
     {
         if (_validator.ValidateInputDouble(maxSumInput, out double maxSum))
@@ -335,6 +350,12 @@ public class Handler
             throw new ValidatorException("Введена некорректная сумма");
         }
     }
+/// <summary>
+/// Метод для генерации случайного сриска продуктов, чья сумма лежит в пределах minSum и maxSum
+/// </summary>
+/// <param name="minSumInput">Минимальная цена продукта в виде строки</param>
+/// <param name="maxSumInput">Максимальная цена продукта в виде строки</param>
+/// <exception cref="ValidatorException">Выбрасывается при неверных данных</exception>
     public void GenerateOrderBySum(string minSumInput, string maxSumInput)
     {
         if(_validator.ValidateInputDouble(minSumInput, out double minSum) && _validator.ValidateInputDouble(maxSumInput, out double maxSum))
@@ -370,6 +391,11 @@ public class Handler
             throw new ValidatorException("Введены некорректные суммы");
         }
     }
+/// <summary>
+/// Метод для случайной генерации списка продуктов, общее количество которых меньше или равно maxCount
+/// </summary>
+/// <param name="maxCountInput">Максимальное количество продуктов в виде строки</param>
+/// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
     public void GenerateOrderByCount(string maxCountInput)
     {
         if(_validator.ValidateInputCount(maxCountInput, out int maxCount))
@@ -404,10 +430,14 @@ public class Handler
             throw new ValidatorException("Введено неверное количество");
         }
     }
-
-    public void ShowExpensiveOrders(string maxSumInput)
+/// <summary>
+/// Метод для отображения заказов стоимость которых от minSum и больше
+/// </summary>
+/// <param name="minSumInput">Нижняя планка стоимости в виде строки</param>
+/// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
+    public void ShowExpensiveOrders(string minSumInput)
     {
-        if (_validator.ValidateInputDouble(maxSumInput, out double maxSum))
+        if (_validator.ValidateInputDouble(minSumInput, out double maxSum))
         {
             var expensOrders = orders.Where(o => o.orderSum > maxSum).ToList();
             foreach (var order in expensOrders)
@@ -421,10 +451,14 @@ public class Handler
             throw new ValidatorException("Введена неверная сумма");
         }
     }
-
-    public void ShowCheapOrders(string minSumInput)
+/// <summary>
+/// Метод для отоброжения заказов стоимостью до maxSum
+/// </summary>
+/// <param name="maxSumInput">Верхняя планка стоимости заказа</param>
+/// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
+    public void ShowCheapOrders(string maxSumInput)
     {
-        if (_validator.ValidateInputDouble(minSumInput, out double minSum))
+        if (_validator.ValidateInputDouble(maxSumInput, out double minSum))
         {
             var cheepOrders = orders.Where(o => o.orderSum < minSum).ToList();
             foreach (var order in cheepOrders)
@@ -438,7 +472,11 @@ public class Handler
             throw new ValidatorException("Введена неверная сумма");
         }
     }
-
+/// <summary>
+/// Метод для отображения заказов которые содержат определённый продукт
+/// </summary>
+/// <param name="idInput">Номер продукта</param>
+/// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
     public void ShowOrdersWith(string idInput)
     {
         if (_validator.ValidateInputInt(idInput, out int id))
@@ -455,7 +493,9 @@ public class Handler
             throw new ValidatorException("Введён неверный id");
         }
     }
-
+/// <summary>
+/// Метод для отображения отсортированного списка заказов
+/// </summary>
     public void ShowSortedOrders()
     {
         var sortedOrders = orders.OrderBy(o => o.orderWeight).ToList();
@@ -465,7 +505,9 @@ public class Handler
             Console.WriteLine();
         }
     }
-
+/// <summary>
+/// Метод для отображения заказов содержащих уникальных продукт
+/// </summary>
     public void ShowUniqueOrders()
     {
         var uniqueOrders = orders.Where(order =>
@@ -479,7 +521,11 @@ public class Handler
             Console.WriteLine();
         }
     }
-
+/// <summary>
+/// Метод для отображения заказов отправленных до определённой даты
+/// </summary>
+/// <param name="dateInput">Дата отправки</param>
+/// <exception cref="ValidatorException">Выбрасывается при неверных входных данных</exception>
     public void ShowOrdersByDate(string dateInput)
     {
         if (_validator.ValidateInputDate(dateInput, out DateOnly date))
@@ -496,7 +542,12 @@ public class Handler
             throw new ValidatorException("Введена неверная дата");
         }
     }
-
+/// <summary>
+/// Метод для отображения списка продуктов из стороннего json файла
+/// </summary>
+/// <param name="clientPath">Путь к файлу</param>
+/// <exception cref="JsonException">Выбрасывается если файл не соответствует файлу заказа</exception>
+/// <exception cref="ValidationException">Выбрасывается при неверных входных данных</exception>
     public void ShowProducts(string clientPath)
     {
         if(_validator.ValidatePath(clientPath))
