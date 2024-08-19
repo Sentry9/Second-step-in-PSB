@@ -27,6 +27,7 @@ public class Handler
         }
 
         path = path + @"\ShoppingCart\Jsons\";
+        Directory.CreateDirectory(path + @"orders");
         productsPath = path + "products.json";
         string[] files = Directory.GetFiles(path);
         string json = File.ReadAllText(files[0]);

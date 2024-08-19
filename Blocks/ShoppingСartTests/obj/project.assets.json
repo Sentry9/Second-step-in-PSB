@@ -1181,11 +1181,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
+      "projectUniqueName": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
       "projectName": "ShoppingСartTests",
-      "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
+      "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
       "packagesPath": "C:\\Users\\darkm\\.nuget\\packages\\",
-      "outputPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\obj\\",
+      "outputPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\darkm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1202,14 +1202,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj": {
-              "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj"
+            "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj": {
+              "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj"
             },
-            "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj": {
-              "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj"
+            "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj": {
+              "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj"
             },
-            "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingCart\\ShoppingCart.csproj": {
-              "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingCart\\ShoppingCart.csproj"
+            "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingCart\\ShoppingCart.csproj": {
+              "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingCart\\ShoppingCart.csproj"
             }
           }
         }

@@ -10,8 +10,4 @@
       <ProjectReference Include="..\Calculator\Calculator.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Jsons\orders\" />
-    </ItemGroup>
-
 </Project>

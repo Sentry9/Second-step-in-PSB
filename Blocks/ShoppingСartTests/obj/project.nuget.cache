@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1QQpPNDk/xvOV6F170ZWtJOPzfpEp9ZsU+4zeyirErhrxQ3AOoNq87TqnE59ZuLj9kIGWH8eloQW4Euu0fS30A==",
+  "dgSpecHash": "/ag8M5OvzbxLatY0Qo6k6cBS/uLAf/Rj+Fj3MCPdvGHfDxea23VpjjFEbDd6h0H9hchg5zjps2Hq5O/IFFKdFQ==",
   "success": true,
-  "projectFilePath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
+  "projectFilePath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\darkm\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\darkm\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",

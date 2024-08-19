@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj": {}
+    "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj": {}
   },
   "projects": {
-    "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj": {
+    "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj",
+        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj",
         "projectName": "Calculator",
-        "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj",
+        "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj",
         "packagesPath": "C:\\Users\\darkm\\.nuget\\packages\\",
-        "outputPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\obj\\",
+        "outputPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\darkm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj": {
-                "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj"
+              "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj": {
+                "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj"
               }
             }
           }
@@ -63,14 +63,14 @@
         }
       }
     },
-    "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj": {
+    "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj",
+        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj",
         "projectName": "Logger",
-        "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj",
+        "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj",
         "packagesPath": "C:\\Users\\darkm\\.nuget\\packages\\",
-        "outputPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\obj\\",
+        "outputPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\darkm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -118,14 +118,14 @@
         }
       }
     },
-    "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingCart\\ShoppingCart.csproj": {
+    "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingCart\\ShoppingCart.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingCart\\ShoppingCart.csproj",
+        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingCart\\ShoppingCart.csproj",
         "projectName": "ShoppingCart",
-        "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingCart\\ShoppingCart.csproj",
+        "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingCart\\ShoppingCart.csproj",
         "packagesPath": "C:\\Users\\darkm\\.nuget\\packages\\",
-        "outputPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingCart\\obj\\",
+        "outputPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingCart\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\darkm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -142,8 +142,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj": {
-                "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj"
+              "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj": {
+                "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj"
               }
             }
           }
@@ -177,14 +177,14 @@
         }
       }
     },
-    "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj": {
+    "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
+        "projectUniqueName": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
         "projectName": "ShoppingСartTests",
-        "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
+        "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\ShoppingСartTests.csproj",
         "packagesPath": "C:\\Users\\darkm\\.nuget\\packages\\",
-        "outputPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingСartTests\\obj\\",
+        "outputPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingСartTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\darkm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -201,14 +201,14 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj": {
-                "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Calculator\\Calculator.csproj"
+              "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj": {
+                "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Calculator\\Calculator.csproj"
               },
-              "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj": {
-                "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\Logger\\Logger.csproj"
+              "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj": {
+                "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\Logger\\Logger.csproj"
               },
-              "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingCart\\ShoppingCart.csproj": {
-                "projectPath": "D:\\PSB\\Second-step-in-PSB\\Blocks\\ShoppingCart\\ShoppingCart.csproj"
+              "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingCart\\ShoppingCart.csproj": {
+                "projectPath": "D:\\PSB\\Second-step-in-PSB2.2\\Blocks\\ShoppingCart\\ShoppingCart.csproj"
               }
             }
           }
