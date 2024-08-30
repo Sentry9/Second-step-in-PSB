@@ -2,12 +2,14 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools.V119.DOMSnapshot;
+using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumInitialize_Builder
 {
     public class SeleniumBuilder : IDisposable
     {
         private IWebDriver WebDriver { get; set; }
+        private WebDriverWait _wait;
         public int Port { get; private set; }
         public bool IsDisposed { get; private set; }
         public bool IsHeadless { get; private set; }
@@ -35,6 +37,7 @@ namespace SeleniumInitialize_Builder
             {
                 WebDriver = new ChromeDriver(_service, _options);
             }
+            _wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
             if (Timeout != TimeSpan.Zero)
             {
                 WebDriver.Manage().Timeouts().ImplicitWait = Timeout;
@@ -100,6 +103,16 @@ namespace SeleniumInitialize_Builder
         {
             StartingURL = url;
             return this;
+        }
+
+        public IWebElement FindElementByXPath(string xpath)
+        {
+            if (WebDriver == null)
+            {
+                throw new InvalidOperationException("WebDriver не инициализирован. Сначала вызовите Build().");
+            }
+
+            return _wait.Until(driver => driver.FindElement(By.XPath(xpath)));;
         }
     }
 }
