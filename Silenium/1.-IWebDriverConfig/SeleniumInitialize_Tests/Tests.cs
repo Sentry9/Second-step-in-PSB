@@ -1,6 +1,7 @@
 using OpenQA.Selenium;
 using SeleniumInitialize_Builder;
 using System.Diagnostics;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumInitialize_Tests
@@ -388,6 +389,220 @@ namespace SeleniumInitialize_Tests
                 throw;
             }
         }
+        
+        /// <summary>
+        /// TODO проблемный тест
+        /// </summary>
+        
+        [Test(Description = "Действия с элементами")]
+        public void FillWithoutGosuslugi()
+        {
+            try
+            {
+                string url = @"https://ib.psbank.ru/store/products/classic-mortgage-program";
+                _driver = _builder.WithURL(url).Build();
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                string xpathButton = "//button[@class='mortgage-calculator-output-submit__button' and @data-appearance= 'secondary']";
+                IWebElement buttonFill = _builder.FindElementByXPath(xpathButton);
+                buttonFill.Click();
+                string buttonContinueXpath = "//button[@type= 'submit' and @rtl-automark= 'REGISTRATION_NEXT']";
+                IWebElement buttonContinue = _builder.FindElementByXPath(buttonContinueXpath);
+                Assert.True(!buttonContinue.Enabled);
+                IWebElement secondName = wait.Until(d=> d.FindElement(By.XPath("//input[@id= 'mat-input-1']")));
+                secondName.SendKeys("Ивыщовлдфжвфывффв");
+                IWebElement firstName = wait.Until(d=> d.FindElement(By.XPath("//input[@id= 'mat-input-2']")));
+                firstName.SendKeys("Иылтволфтывлфтвлф");
+                IWebElement midName = wait.Until(d=> d.FindElement(By.XPath("//input[@id= 'mat-input-3']")));
+                midName.SendKeys("Иылфьвлдыфтвлдтфыдв");
+                IWebElement sex = wait.Until(d=> d.FindElement(By.XPath("//div[@class= 'rui-radio']")));
+                sex.Click();
+                IWebElement birthDate = wait.Until(d=> d.FindElement(By.XPath("//input[@data-mat-calendar= 'mat-datepicker-1']")));
+                birthDate.SendKeys("12122000");
+                //IWebElement phoneNumber = wait.Until(d=> d.FindElement(By.XPath("//input[@id= 'formly_23_input_Phone_0']")));
+                IWebElement phoneNumber = wait.Until(d => d.FindElement(By.CssSelector("[name='Phone']")));
+                phoneNumber.SendKeys("9654105479");
+                IWebElement address
+                    = wait.Until(d=> d.FindElement(By.XPath("//rui-form-field-wrapper[@class= 'form-field-wrapper select-with-double-item-field form-field-hide-placeholder form-field-pristine form-field-untouched']")));
+                address.Click();
+                IWebElement firstOffice = wait.Until(d=>
+                    d.FindElement(
+                        By.XPath("//mat-option[@id= 'formly_28_select-with-double-item_OfficeId_0_0']")));
+                firstOffice.Click();
+                IWebElement citizenship = wait.Until(d=> d.FindElement(By.XPath("//div[@id= 'mat-select-value-5']")));
+                citizenship.Click();
+                IWebElement resident = wait.Until(d=>
+                    d.FindElement(
+                        By.XPath("//mat-option[@id= 'formly_27_select_RussianFederationResident_0_0']")));
+                resident.Click();
+                IWebElement employment
+                    = wait.Until(d=> d.FindElement(By.XPath("//div[@id= 'mat-select-value-7']")));
+                employment.Click();
+                IWebElement official = wait.Until(d=>
+                    d.FindElement(
+                        By.XPath("//mat-option[@id= 'formly_27_select_RussianEmployment_1_0']")));
+                official.Click();
+                IWebElement email = wait.Until(d=> d.FindElement(By.XPath("//input[@id= 'mat-input-4']")));
+                email.SendKeys("darkmoon7770@yandex.ru");
+                IWebElement checkform = wait.Until(d =>
+                    d.FindElement(By.XPath("//rtl-registration-step-form[@class= 'ng-star-inserted']")));
+                var checkBoxes = wait.Until(d =>
+                    checkform.FindElements(By.XPath(".//span[@class= 'rui-checkbox__checkmark']")));
+                IWebElement checkBox1 = checkBoxes[0];
+                IWebElement checkBox2 = checkBoxes[1];
+                IWebElement checkBox3 = checkBoxes[2];
+                checkBox1.Click();
+                checkBox2.Click();
+                checkBox3.Click();
+                IWebElement button = wait.Until(d =>
+                    d.FindElement(By.XPath("//button[@rtl-automark= 'REGISTRATION_NEXT']")));
+                Assert.True(button.Enabled);
+            }
+            catch (Exception ex)
+            {
+                SaveScreenshotOnFailure(_driver, nameof(FillWithoutGosuslugi));
+                throw;
+            }
+        }
+        [Test(Description = "Проверка смены цвета при наведении кнопки 'Заполнить через Госуслуги'")]
+        public void ActionTest1()
+        {
+            try
+            {
+                string url = @"https://ib.psbank.ru/store/products/classic-mortgage-program";
+                _driver = _builder.WithURL(url).Build();
+                string xpathButton = "//button[@icon='gosuslugi' and @appearance= 'primary']";
+                string xpathColor = "//rui-wrapper[@class ='wrapper' and @data-appearance ='primary']"; 
+                IWebElement elementButton = _builder.FindElementByXPath(xpathButton);
+                IWebElement elementColor = elementButton.FindElement(By.XPath(xpathColor));
+                bool isClickable = elementButton.Displayed && elementButton.Enabled;
+                string color = elementColor.GetCssValue("background-color");
+                Assert.True(isClickable);
+                Assert.That(color, Is.EqualTo("rgba(242, 97, 38, 1)"));
+                Actions actions = new Actions(_driver);
+                actions.MoveToElement(elementButton).Perform();
+                color = elementColor.GetCssValue("background-color");
+                Assert.That(color, Is.EqualTo("rgba(212, 73, 33, 1)")); //Почему цвет тут меняется?
+            }
+            catch (Exception ex)
+            {
+                SaveScreenshotOnFailure(_driver, nameof(ActionTest1));
+                throw;
+            }
+        }
+
+        [Test(Description = "Проверка слайдера")]
+        public void ActionTest2()
+        {
+            try
+            {
+                string url = @"https://ib.psbank.ru/store/products/classic-mortgage-program";
+                _driver = _builder.WithURL(url).Build();
+                string xpathSlider = "//input[@type= 'range' and @step= '50000']";
+                IWebElement slider = _builder.FindElementByXPath(xpathSlider);
+                string value = slider.GetAttribute("style");
+                Actions actions = new Actions(_driver);
+                actions.ClickAndHold(slider)
+                    .MoveByOffset(50, 0) 
+                    .Release()                       
+                    .Perform();
+                Assert.That(value, !Is.EqualTo(slider.GetAttribute("style")));
+            }
+            catch (Exception ex)
+            {
+                SaveScreenshotOnFailure(_driver, nameof(ActionTest1));
+                throw;
+            }
+        }
+        
+        // Третий блок
+
+        [Test(Description = "Определить уникальный элемент на каждой странице")]
+        public void NavigationTest1()
+        {
+            try
+            {
+                string url = @"https://ib.psbank.ru/";
+                _driver = _builder.WithURL(url).Build();
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                _driver.Navigate().GoToUrl("https://ib.psbank.ru/store/products/consumer-loan");
+                _driver.Navigate().GoToUrl("https://ib.psbank.ru/store/products/investmentsbrokerage");
+                IWebElement phoneBroker = wait.Until(d =>
+                    d.FindElement(By.XPath("//a[@class= 'service-phone-number font-weight-bold']")));
+                Assert.That(phoneBroker.Text, Is.EqualTo("8 (800) 700 9 777"));
+                _driver.Navigate().Back();
+                IWebElement phoneLoan = wait.Until(d =>
+                    d.FindElement(By.XPath("//a[@class= 'service-phone-number font-weight-bold']")));
+                Assert.That(phoneLoan.Text, Is.EqualTo("8 800 333 03 03"));
+                _driver.Navigate().Back();
+                IWebElement forBusiness = wait.Until(d =>
+                    d.FindElement(By.XPath("//a[@class= 'desktop-menu__link rtl-menu-item']")));
+                Assert.That(forBusiness.Text, Is.EqualTo("Для бизнеса"));
+            }
+            catch (Exception ex)
+            {
+                SaveScreenshotOnFailure(_driver, nameof(NavigationTest1));
+                throw;
+            }
+        }
+        
+// Это 4-й блок
+        
+        [Test(Description = "Проверка чекбокса категорий")]
+        public void CheckBoxes()
+        {
+            try
+            {
+                string url = @"https://ib.psbank.ru/store/products/your-cashback-new";
+                _driver = _builder.WithURL(url).Build();
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+                IWebElement button = wait.Until(d=> d.FindElement(By.XPath("//button[contains(@class, 'change-categories')]")));
+                IWebElement cookie = wait.Until(d=> d.FindElement(By.XPath("//div[@ng-version='12.1.5']")));
+                IWebElement cookieButton = wait.Until(d=> cookie.FindElement(By.TagName("button")));
+                cookieButton.Click();
+                button.FindElement(By.XPath(".//rui-wrapper[@class= 'wrapper']")).Click();
+                IWebElement dialog = wait.Until(d=> d.FindElement(By.XPath("//rtl-select-categories-dialog[@class= 'ng-star-inserted']")));
+                var checkboxes = wait.Until(d=> dialog.FindElements(By.XPath(".//span[@class= 'rui-checkbox__checkmark']")));
+                checkboxes[0].Click();
+                checkboxes[1].Click();
+                checkboxes[2].Click();
+                foreach (var checkbox in checkboxes)
+                {
+                    Assert.True(checkbox.Enabled);
+                    checkbox.Click();
+                    checkbox.Click();
+                }
+            }
+            catch (Exception ex)
+            {
+                SaveScreenshotOnFailure(_driver, nameof(ActionTest1));
+                throw;
+            }
+        }
+        
+        [Test(Description = "Проверка Фамилии в выпадающем списке")]
+        public void SelectLastNameFromDropdown()
+        {
+            string lastNamePrefix = "Пу";
+            string fullLastName = "Пушкин";
+            string url = @"https://ib.psbank.ru/store/products/your-cashback-new";
+            _driver = _builder.WithURL(url).Build();
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            IWebElement lastNameInput = wait.Until(d => d.FindElement(By.XPath("//input[@id='mat-input-1']")));
+            lastNameInput.SendKeys(lastNamePrefix);
+            var suggestions = wait.Until(d => d.FindElements(By.XPath("//div[@class='live-dadata-item ng-star-inserted']")));
+            foreach (var suggestion in suggestions)
+            {
+                if (suggestion.Text.Contains(fullLastName))
+                {
+                    suggestion.Click();
+                    break;
+                }
+            }
+        }
+        
+        /// <summary>
+        // TODO ТУТ НЕ ХВАТАЕТ 3 задания 4 блока
+        /// </summary>
 
         [TearDown]
         public void TearDown()
