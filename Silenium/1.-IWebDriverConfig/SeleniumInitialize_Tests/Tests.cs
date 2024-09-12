@@ -1,8 +1,12 @@
 using OpenQA.Selenium;
 using SeleniumInitialize_Builder;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
+using Selenium_pages;
+
 
 namespace SeleniumInitialize_Tests
 {
@@ -389,11 +393,7 @@ namespace SeleniumInitialize_Tests
                 throw;
             }
         }
-        
-        /// <summary>
-        /// TODO проблемный тест
-        /// </summary>
-        
+
         [Test(Description = "Действия с элементами")]
         public void FillWithoutGosuslugi()
         {
@@ -417,9 +417,10 @@ namespace SeleniumInitialize_Tests
                 IWebElement sex = wait.Until(d=> d.FindElement(By.XPath("//div[@class= 'rui-radio']")));
                 sex.Click();
                 IWebElement birthDate = wait.Until(d=> d.FindElement(By.XPath("//input[@data-mat-calendar= 'mat-datepicker-1']")));
+                birthDate.Click();
                 birthDate.SendKeys("12122000");
-                //IWebElement phoneNumber = wait.Until(d=> d.FindElement(By.XPath("//input[@id= 'formly_23_input_Phone_0']")));
-                IWebElement phoneNumber = wait.Until(d => d.FindElement(By.CssSelector("[name='Phone']")));
+                IWebElement phoneNumber = wait.Until(d=> d.FindElement(By.XPath("//input[@id= 'formly_23_input_Phone_0']")));
+                phoneNumber.Click();
                 phoneNumber.SendKeys("9654105479");
                 IWebElement address
                     = wait.Until(d=> d.FindElement(By.XPath("//rui-form-field-wrapper[@class= 'form-field-wrapper select-with-double-item-field form-field-hide-placeholder form-field-pristine form-field-untouched']")));
@@ -480,8 +481,9 @@ namespace SeleniumInitialize_Tests
                 Assert.That(color, Is.EqualTo("rgba(242, 97, 38, 1)"));
                 Actions actions = new Actions(_driver);
                 actions.MoveToElement(elementButton).Perform();
+                Thread.Sleep(500);
                 color = elementColor.GetCssValue("background-color");
-                Assert.That(color, Is.EqualTo("rgba(212, 73, 33, 1)")); //Почему цвет тут меняется?
+                Assert.That(color, Is.EqualTo("rgba(212, 73, 33, 1)"));
             }
             catch (Exception ex)
             {
@@ -545,6 +547,83 @@ namespace SeleniumInitialize_Tests
             }
         }
         
+        [Test(Description = "Проверить, что страница загрузилась")]
+        public void NavigationTest2()
+        {
+            try
+            {
+                string url = @"https://ib.psbank.ru/";
+                _driver = _builder.WithURL(url).Build();
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                IWebElement element = wait.Until(d => d.FindElement(By.XPath("//h2[@class= 'title']")));
+                Assert.That(element.Text, Is.EqualTo("Финансовые продукты"));
+                _driver.Navigate().GoToUrl("https://ib.psbank.ru/store/products/consumer-loan");
+                IWebElement element1 = wait.Until(d => d.FindElement(By.XPath("//h2[@class= 'registration-step-form__title ng-star-inserted']")));
+                Assert.That(element1.Text, Is.EqualTo("Давайте знакомиться!"));
+                _driver.Navigate().GoToUrl("https://ib.psbank.ru/store/products/investmentsbrokerage");
+                IWebElement element2 = wait.Until(d => d.FindElement(By.XPath("//h2[@class= 'information-banner__header']")));
+                Assert.That(element2.Text, Is.EqualTo("Заключить договор через Госуслуги"));
+            }
+            catch (Exception ex)
+            {
+                SaveScreenshotOnFailure(_driver, nameof(NavigationTest2));
+                throw;
+            }
+        }
+        [Test(Description = "Проверка перехода по ссылке внутри элемента")]
+        public void NavigationTest3()
+        {
+            try
+            {
+                string url = @"https://ib.psbank.ru/";
+                _driver = _builder.WithURL(url).Build();
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                Assert.That(_driver.Url, Is.EqualTo("https://ib.psbank.ru/"));
+                IWebElement element = wait.Until(d =>
+                    d.FindElement(By.XPath("//span[contains(text(), 'Инвестиции')]")));
+                element.Click();
+                IWebElement element1 = wait.Until(d =>
+                    d.FindElement(By.XPath("//a[contains(text(), 'Брокерский договор')]")));
+                Assert.That(element1.GetAttribute("href"), Is.EqualTo("https://ib.psbank.ru/store/products/investmentsbrokerage"));
+                element1.Click();
+                wait.Until(d=> d.Url != url);
+                Assert.That(_driver.Url, Is.EqualTo("https://ib.psbank.ru/store/products/investmentsbrokerage"));
+            }
+            catch (Exception ex)
+            {
+                SaveScreenshotOnFailure(_driver, nameof(NavigationTest3));
+                throw;
+            }
+        }
+        [Test(Description = "Проверка перехода по ссылке внутри элемента")]
+        public void NavigationTest4()
+        {
+            try
+            {
+                string url = @"https://ib.psbank.ru/store/products/consumer-loan";
+                _driver = _builder.WithURL(url).Build();
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+                Assert.That(_driver.Url, Is.EqualTo("https://ib.psbank.ru/store/products/consumer-loan"));
+                ((IJavaScriptExecutor)_driver).ExecuteScript("window.open();");
+                var tabs = _driver.WindowHandles;
+                _driver.SwitchTo().Window(tabs.Last());
+                _driver.Navigate().GoToUrl("https://ib.psbank.ru/store/products/investmentsbrokerage");
+                wait.Until(d => d.Url != url);
+                Assert.That(_driver.Url, Is.EqualTo("https://ib.psbank.ru/store/products/investmentsbrokerage"));
+                IWebElement license = wait.Until(d=> d.FindElement(By.XPath("//rtl-copyrights")));
+                string text = license.Text;
+                Assert.True(Regex.IsMatch(text, @"Генеральная лицензия на осуществление банковских операций № \d{4} от \d{2} .* \d{4}"));
+                _driver.SwitchTo().Window(tabs[0]);
+                license = _driver.FindElement(By.XPath("//rtl-copyrights"));
+                Assert.That(license.Text, Is.EqualTo(text));
+            }
+            catch (Exception ex)
+            {
+                SaveScreenshotOnFailure(_driver, nameof(NavigationTest4));
+                throw;
+            }
+        }
+        
 // Это 4-й блок
         
         [Test(Description = "Проверка чекбокса категорий")]
@@ -600,9 +679,40 @@ namespace SeleniumInitialize_Tests
             }
         }
         
-        /// <summary>
-        // TODO ТУТ НЕ ХВАТАЕТ 3 задания 4 блока
-        /// </summary>
+        [Test(Description = "Проверка файла с условиями")]
+        public void DownloadTest()
+        {
+            string url = @"https://ib.psbank.ru/store/products/your-cashback-new";
+            _driver = _builder.WithURL(url).Build();
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            IWebElement tarif = wait.Until(d =>
+                d.FindElement(By.XPath("//psb-col[@class= 'psb-col-6 psb-col_md-12 psb-col_sm-4']")));
+            IWebElement button = wait.Until(d => tarif.FindElement(By.XPath(".//psb-document")));
+            button.Click();
+            var windows = _driver.WindowHandles;
+            _driver.SwitchTo().Window(windows[1]);
+            var title = wait.Until(d => d.Url);
+            Assert.That(title, Is.EqualTo("https://www.psbank.ru/-/media/Files/Personal/Everyday/Cards/yc_short_tarifs.pdf"));
+        }
+        
+        // 5-й блок
+        [Test(Description = "Проверка заполнения сайта")]
+        public void FillPage()
+        {
+            string url = @"https://ib.psbank.ru/store/products/your-cashback-new";
+            _driver = _builder.WithURL(url).Build();
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            var page = new DebitCard(_driver);
+            var checkFields = new DataVerification(_driver);
+            var result = page.FillForm("Рыдвдывыдс", "Вьдфвьлыьфвд", "Оыьлвыьлф", "M", "12122000", "9654105479", "РФ");
+            Assert.IsTrue(checkFields.VerifyEnteredData("Рыдвдывыдс", "Вьдфвьлыьфвд", "Оыьлвыьлф", "12.12.2000", "+7 (965) 410-54-79"));
+            _driver.Navigate().GoToUrl("https://ib.psbank.ru/store/products/consumer-loan");
+            //Thread.Sleep(3000);
+            var creditPage = new CreditCard(_driver);
+            var creditResult = creditPage.FillConsumerLoanForm("Рыдвдывыдс", "Вьдфвьлыьфвд", "Оыьлвыьлф", "M",
+                "12122000", "654105479", "РФ", "Y");
+            Assert.IsTrue(checkFields.VerifyEnteredData("Рыдвдывыдс", "Вьдфвьлыьфвд", "Оыьлвыьлф", "12.12.2000", "+7 (965) 410-54-79"));
+        }
 
         [TearDown]
         public void TearDown()

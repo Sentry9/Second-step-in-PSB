@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SeleniumInitialize_Builder\SeleniumInitialize_Builder.csproj" />
+    <ProjectReference Include="..\Selenium_pages\Selenium_pages.csproj" />
   </ItemGroup>
 
 </Project>

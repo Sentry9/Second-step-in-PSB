@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selenium_pages", "Selenium_pages\Selenium_pages.csproj", "{4F3AF3BD-FBD6-4294-AFDD-884C78DDE203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{709AD21A-09CE-4852-AADF-B2255904E769}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{709AD21A-09CE-4852-AADF-B2255904E769}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{709AD21A-09CE-4852-AADF-B2255904E769}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F3AF3BD-FBD6-4294-AFDD-884C78DDE203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F3AF3BD-FBD6-4294-AFDD-884C78DDE203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F3AF3BD-FBD6-4294-AFDD-884C78DDE203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F3AF3BD-FBD6-4294-AFDD-884C78DDE203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
