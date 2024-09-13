@@ -8,15 +8,12 @@ public class DebitCard
 {
     private IWebDriver _driver;
     private WebDriverWait _wait;
-
-    // Конструктор класса
+    
     public DebitCard(IWebDriver driver)
     {
         _driver = driver;
         _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
     }
-
-    // Локаторы для полей формы
     private IWebElement LastNameField => _wait.Until(d=> d.FindElement(By.XPath("//input[@id='mat-input-1']")));
     private IWebElement FirstNameField => _wait.Until(d=> d.FindElement(By.XPath("//input[@id='mat-input-2']")));
     private IWebElement MiddleNameField => _wait.Until(d=> d.FindElement(By.XPath("//input[@id='mat-input-3']")));
@@ -30,8 +27,7 @@ public class DebitCard
 
     private IWebElement Coockie =>
         _wait.Until(d => d.FindElement(By.XPath("//div[@class= 'block ng-star-inserted']")));
-
-    // Методы для заполнения полей с использованием цепочки вызовов
+    
     public DebitCard FillLastName(string lastName)
     {
         LastNameField.Clear();
@@ -122,7 +118,6 @@ public class DebitCard
         return this;
     }
 
-    // Метод для заполнения формы случайными данными
     public DebitCard FillForm(string lastName, string firstName, string middleName, string sex, string birthDate, string phoneNumber, string citizenship)
     {
         return AcceptCoockie()

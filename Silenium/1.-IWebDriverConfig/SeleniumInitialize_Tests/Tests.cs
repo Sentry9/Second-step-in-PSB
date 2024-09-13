@@ -537,7 +537,7 @@ namespace SeleniumInitialize_Tests
                 Assert.That(phoneLoan.Text, Is.EqualTo("8 800 333 03 03"));
                 _driver.Navigate().Back();
                 IWebElement forBusiness = wait.Until(d =>
-                    d.FindElement(By.XPath("//a[@class= 'desktop-menu__link rtl-menu-item']")));
+                    d.FindElement(By.XPath("//li[@class= 'desktop-menu__item ng-star-inserted']")));
                 Assert.That(forBusiness.Text, Is.EqualTo("Для бизнеса"));
             }
             catch (Exception ex)
